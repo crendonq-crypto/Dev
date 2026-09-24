@@ -9,6 +9,7 @@ COPY package*.json ./
 RUN npm ci
 #--only=production
 COPY ./src ./src
+COPY index.html ./index.html
 
 RUN npm run build
 RUN npm prune --production
@@ -18,6 +19,7 @@ FROM base AS release
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
+COPY index.html ./dist/index.html
 
 #USER nodedoc
 
